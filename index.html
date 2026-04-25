@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso Exclusivo</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+  color: white;
+  text-align: center;
+}
+
+.container {
+  max-width: 720px;
+  margin: auto;
+  padding: 20px 15px 60px;
+}
+
+.top-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 22px;
+  border: 2px solid #ff9900;
+  color: #ff9900;
+  font-size: 26px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.main-headline {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.gold {
+  color: #ffb300;
+}
+
+.viewers {
+  margin-top: 15px;
+  color: #00ffd0;
+  font-weight: bold;
+}
+
+.video-wrapper {
+  position: relative;
+  margin-top: 25px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+}
+
+video {
+  width: 100%;
+  display: block;
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.pause-overlay img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.custom-play {
+  position: relative;
+  z-index: 30;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: 2px solid rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: white;
+  cursor: pointer;
+}
+
+.video-overlay-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 18px;
+  background: rgba(0,0,0,0.65);
+  z-index: 25;
+}
+
+.video-overlay-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff2d2d, #ff0000, #cc0000);
+  transition: width 0.8s ease;
+}
+
+.btn {
+  display: none;
+  margin-top: 25px;
+  width: 100%;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+  background: linear-gradient(45deg, #00ff88, #00cc66);
+  border-radius: 10px;
+}
+
+.benefits {
+  margin-top: 30px;
+  padding: 22px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  text-align: left;
+  line-height: 2;
+}
+
+.footer-note {
+  margin-top: 25px;
+  color: #aaa;
+  line-height: 1.8;
+}
+canvas#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<div class="container">
+
+<div class="top-badge">ULTRASECRETO</div>
+
+<div class="main-headline">
+DESCUBRA AGORA COMO PESSOAS COMUNS ESTÃO<br>
+MUDANDO DE VIDA USANDO UMA<br>
+<span class="gold">BRECHA DIGITAL POUCO CONHECIDA</span><br>
+GERANDO DE R$500 A R$1.200 TODOS OS DIAS
+</div>
+
+<div class="viewers" id="liveViewers">👁 1.127 pessoas visualizando agora</div>
+
+<div class="video-wrapper">
+  <video id="vslVideo" playsinline preload="auto">
+    <source src="https://res.cloudinary.com/dhb9ljzau/video/upload/v1777146127/WhatsApp_Video_2026-04-25_at_15.05.21_k9l19u.mp4" type="video/mp4">
+  </video>
+
+  <div class="pause-overlay" id="pauseOverlay">
+    <img src="617df457-d5b6-4da8-b2aa-9e36226a0b00.png" alt="overlay">
+    <div class="custom-play" id="customPlay">▶</div>
+  </div>
+
+  <div class="video-overlay-progress">
+    <div class="video-overlay-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<a href="SEU_LINK_AQUI" class="btn" id="ctaBtn">
+QUERO DESBLOQUEAR O SISTEMA AGORA
+</a>
+
+<div class="benefits">
+  ✔ Sem estoque<br>
+  ✔ Sem aparecer<br>
+  ✔ Sem experiência<br>
+  ✔ Pode começar hoje
+</div>
+
+<div class="footer-note">
+✔ Método simples e direto para iniciantes<br>
+✔ Sem precisar aparecer ou criar produto<br>
+✔ Estratégia usada por quem busca lucro diário online
+</div>
+
+</div>
+
+<script>
+let progress = 0;
+let progressInterval = null;
+
+const video = document.getElementById("vslVideo");
+const pauseOverlay = document.getElementById("pauseOverlay");
+const customPlay = document.getElementById("customPlay");
+const progressBar = document.getElementById("progressBar");
+const ctaBtn = document.getElementById("ctaBtn");
+
+function fakeProgress() {
+  let increment;
+
+  if (progress < 45) increment = 1.2;
+  else if (progress < 75) increment = 0.5;
+  else increment = 0.15;
+
+  progress += increment;
+  if (progress > 100) progress = 100;
+
+  progressBar.style.width = progress + "%";
+}
+
+function startProgress() {
+  if (!progressInterval) {
+    progressInterval = setInterval(fakeProgress, 1000);
+  }
+}
+
+function stopProgress() {
+  clearInterval(progressInterval);
+  progressInterval = null;
+}
+
+customPlay.addEventListener("click", function () {
+  pauseOverlay.style.display = "none";
+  video.play();
+});
+
+video.addEventListener("play", function () {
+  pauseOverlay.style.display = "none";
+  startProgress();
+});
+
+video.addEventListener("pause", function () {
+  if (!video.ended) {
+    pauseOverlay.style.display = "flex";
+    stopProgress();
+  }
+});
+
+video.addEventListener("ended", function () {
+  stopProgress();
+});
+
+setTimeout(function () {
+  ctaBtn.style.display = "block";
+}, 217000);
+
+let viewers = 1127;
+let direction = 1;
+
+function animateViewers() {
+  if (viewers >= 1980) direction = -1;
+  if (viewers <= 620) direction = 1;
+
+  viewers += Math.floor(Math.random() * 8) * direction;
+
+  document.getElementById("liveViewers").innerText =
+    "👁 " + viewers.toLocaleString("pt-BR") + " pessoas visualizando agora";
+
+  setTimeout(animateViewers, 2500);
+}
+
+animateViewers();
+
+// Partículas estilo premium
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let particles = [];
+
+for (let i = 0; i < 120; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2.2 + 0.8,
+    speed: Math.random() * 0.6 + 0.15,
+    opacity: Math.random() * 0.5 + 0.2
+  });
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p) => {
+    p.y -= p.speed;
+
+    if (p.y < 0) {
+      p.y = canvas.height;
+      p.x = Math.random() * canvas.width;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 215, 0, ${p.opacity})`;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = "rgba(255,215,0,0.4)";
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+</script>
+
+</body>
+</html>
