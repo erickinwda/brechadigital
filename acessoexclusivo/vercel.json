@@ -1,9 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/acessoexclusivo",
-      "destination": "https://www.brechadigital.cloud/acessoexclusivo",
-      "permanent": true
-    }
-  ]
-}
