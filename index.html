@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conteúdo Restrito</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 420px;
+  padding: 20px;
+  animation: fadeIn 1.2s ease;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  margin-bottom: 15px;
+  font-size: 13px;
+  border-radius: 6px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.highlight {
+  color: #00ff88;
+}
+
+p {
+  font-size: 15px;
+  color: #bbb;
+  margin-bottom: 25px;
+}
+
+button {
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(45deg,#00ff88,#00cc66);
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="badge">conteúdo em vídeo • acesso recente</div>
+
+<h1>
+Existe um padrão pouco percebido em vídeos comuns da internet…<br><br>
+
+<span class="highlight">algumas pessoas estão usando isso de forma diferente.</span>
+</h1>
+
+<p>
+Não é algo que costuma aparecer para todo mundo.  
+Se você chegou até aqui, talvez valha a pena entender como funciona.
+</p>
+
+<button onclick="entrar()">Continuar</button>
+
+</div>
+
+<script>
+function entrar() {
+  window.location.href = "acesso.html";
+}
+</script>
+
+</body>
+</html>
